@@ -12,7 +12,7 @@ function init() {
   box.position.z = 2;
 
   plane.rotation.x = Math.PI / 2;
-  plane.position.y = 0.5;
+  plane.position.y = -0.25;
   pointLight.position.y = 15;
   pointLight.position.z = 1.4;
   pointLight.intensity = 1;
@@ -55,6 +55,9 @@ function init() {
   var textureG = new THREE.TextureLoader().load('./textures/grass2.bmp');
   var textureR = new THREE.TextureLoader().load('./textures/water.bmp');
   var texture = new THREE.TextureLoader().load('./textures/grass.jpg');
+
+  var woodFloor = new THREE.TextureLoader().load('./textures/woodFloor.bmp');
+
   scene.add(box);
   scene.add(plane);
   pointLight.add(sun);
@@ -63,6 +66,20 @@ function init() {
   var material_grass = new THREE.MeshLambertMaterial({
     map: texture
   });
+
+  // Behind waterfall
+  var geometry_back = new THREE.BoxGeometry(0.1, 4.5, 6);
+  var ground_back = new THREE.Mesh(geometry_back, material_grass);
+  ground_back.position.set(7.5, 2, -4.55);
+  scene.add(ground_back);
+
+  var ground_backWaterFall2 = new THREE.BoxGeometry(0.5, 0.5, 6);
+  var ground_backWaterFall2 = new THREE.Mesh(
+    ground_backWaterFall2,
+    material_grass
+  );
+  ground_backWaterFall2.position.set(7.2, 0.001, -4.55);
+  scene.add(ground_backWaterFall2);
 
   // grassland Left
   var geometry_left = new THREE.BoxGeometry(2, 4.2, 2);
@@ -279,15 +296,34 @@ function init() {
 
   // water pool
   var geometry = new THREE.CircleGeometry(2, 6);
-  var circle = new THREE.Mesh(geometry, material_river, {
-    side: THREE.DoubleSide
+  var circleW = new THREE.Mesh(geometry, material_river);
+  circleW.position.y = 0.9;
+  circleW.position.x = -3;
+  circleW.position.z = -4.5;
+  circleW.rotation.x = 4.72;
+  circleW.rotation.z = 11;
+  scene.add(circleW);
+
+  // House
+  var material_house = new THREE.MeshLambertMaterial({
+    map: woodFloor
   });
-  circle.position.y = 0.9;
-  circle.position.x = -3;
-  circle.position.z = -4.5;
-  circle.rotation.x = 4.72;
-  circle.rotation.z = 11;
-  scene.add(circle);
+
+  var houseFloor = new THREE.BoxGeometry(10, 0.1, 10);
+  var houseFloor = new THREE.Mesh(houseFloor, material_house);
+  houseFloor.position.set(-2, 0.001, 18);
+  scene.add(houseFloor);
+
+  var houseRoof = new THREE.BoxGeometry(10, 0.1, 10);
+  var houseRoof = new THREE.Mesh(houseRoof, material_house);
+  houseRoof.position.set(-2, 10, 18);
+  scene.add(houseRoof);
+
+  var houseWall1 = new THREE.BoxGeometry(10, 0.1, 10);
+  var houseWall1 = new THREE.Mesh(houseWall1, material_house);
+  houseWall1.position.set(-2, 5, 23);
+  houseWall1.rotation.x = 1.58;
+  scene.add(houseWall1);
 
   //river bed
   // var geometry_bed = new THREE.BoxGeometry(1, .05, 4);
@@ -373,7 +409,7 @@ function init() {
 }
 
 function getBox() {
-  var geometry = new THREE.BoxGeometry(3, 3, 3);
+  var geometry = new THREE.BoxGeometry(0.5, 0.5, 3.5);
   var material = new THREE.MeshPhongMaterial({ color: 'red' });
   var mesh = new THREE.Mesh(geometry, material);
   mesh.castShadow = true;
