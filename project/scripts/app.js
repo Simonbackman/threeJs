@@ -31,9 +31,9 @@ function init() {
     1,
     1000
   );
-  camera.position.x = 3;
+  camera.position.x = -35;
   camera.position.y = 25;
-  camera.position.z = 50;
+  camera.position.z = 40;
 
   camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -304,26 +304,11 @@ function init() {
   circleW.rotation.z = 11;
   scene.add(circleW);
 
-  // House
-  var material_house = new THREE.MeshLambertMaterial({
-    map: woodFloor
-  });
-
-  var houseFloor = new THREE.BoxGeometry(10, 0.1, 10);
-  var houseFloor = new THREE.Mesh(houseFloor, material_house);
-  houseFloor.position.set(-2, 0.001, 18);
-  scene.add(houseFloor);
-
-  var houseRoof = new THREE.BoxGeometry(10, 0.1, 10);
-  var houseRoof = new THREE.Mesh(houseRoof, material_house);
-  houseRoof.position.set(-2, 10, 18);
-  scene.add(houseRoof);
-
-  var houseWall1 = new THREE.BoxGeometry(10, 0.1, 10);
-  var houseWall1 = new THREE.Mesh(houseWall1, material_house);
-  houseWall1.position.set(-2, 5, 23);
-  houseWall1.rotation.x = 1.58;
-  scene.add(houseWall1);
+  // var HouseWindowBe = new THREE.BoxGeometry(1, 0.1, 10);
+  // var HouseWindowBe = new THREE.Mesh(HouseWindowBe, material_house);
+  // HouseWindowBe.position.set(3, 1, 13);
+  // HouseWindowBe.rotation.x = 1.58;
+  // scene.add(HouseWindowBe);
 
   //river bed
   // var geometry_bed = new THREE.BoxGeometry(1, .05, 4);
@@ -335,6 +320,13 @@ function init() {
   // var bed2 = new THREE.Mesh(geometry_bed, material_grass);
   // bed.position.set(.5, .025, -6.55);
   // scene.add(bed2);
+
+  let loader = new THREE.GLTFLoader();
+  loader.load('./house/scene.gltf', function(gltf) {
+    scene.add(gltf.scene);
+    gltf.position.set(24, 24, 24);
+    // house = gltf.scene.children[0];
+  });
 
   var tree = function(x, z) {
     this.x = x;
