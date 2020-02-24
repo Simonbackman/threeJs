@@ -63,7 +63,7 @@ function init() {
   var renderer = new THREE.WebGLRenderer();
   renderer.shadowMap.enabled = true;
   renderer.setSize(window.innerWidth, window.innerHeight);
-  // renderer.setClearColor('rgb(120, 120, 120)');
+  renderer.setClearColor('rgb(0, 0, 0)');
   document.getElementById('webgl').appendChild(renderer.domElement);
 
   var controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -360,8 +360,8 @@ function init() {
   /*=======
   3D modules 
   =======*/
-
   let loader = new THREE.GLTFLoader();
+
   loader.load('./house/scene.gltf', gltfHouse => {
     gltfHouse.scene.position.set(4.7, -0.3, 5.3);
     gltfHouse.scene.rotation.y = 4;
