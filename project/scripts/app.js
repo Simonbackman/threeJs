@@ -324,7 +324,8 @@ function init() {
   let loader = new THREE.GLTFLoader();
   loader.load('./house/scene.gltf', function(gltf) {
     scene.add(gltf.scene);
-    gltf.position.set(24, 24, 24);
+    gltf.scene.position.set(0, 1, 4);
+    gltf.scene.rotation.y = 4.7;
     // house = gltf.scene.children[0];
   });
 
